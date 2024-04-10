@@ -1,13 +1,11 @@
-import {colorblender, extend} from "colorblender";
-import mixExtension from 'colorblender/extensions/mix';
-import nameExtension from 'colorblender/extensions/name';
-import keywordExtension from 'colorblender/extensions/keyword';
-import hwbExtension from 'colorblender/extensions/hwb';
-
-
 import { paletten } from 'paletten';
+import {colorblender, extend} from "colorblender";
+import nameExtension from 'colorblender/extensions/name';
 
-extend([mixExtension, nameExtension, keywordExtension, hwbExtension]);
+
+
+
+extend([nameExtension]);
 
 /**
  * Generate a colour palette of tones, based on a single colour.

@@ -21,6 +21,14 @@ const generatorList = [
     id: "tones",
     name: "Colour Tones",
     generatorFunction: generateTones
+  },
+  {
+    id: "tonesAlt",
+    name: "Test Tones Please Ignore",
+    generatorFunction: (baseColour, customColourName) => {
+      console.log("Alternate option selected! Woo!");
+      return generateTones(baseColour, customColourName);
+    }
   }
 ]
 
@@ -31,6 +39,7 @@ function App() {
   let [customColourName, setCustomColourName] = useState("");
   let [colourPalette, setColourPalette] = useState([]);
   let [colourCards, setColourCards] = useState([]);
+  let [selectedPaletteMode, setSelectedPaletteMode] = useState("tones");
 
   const [modal, setModal] = useState(false);
 
@@ -103,16 +112,22 @@ function App() {
         
         <div id="generatorSelector">
           <label htmlFor="chosenGenerator">Choose your palette generator:</label>
-          <select name="chosenGenerator" id="chosenGenerator">
+          <select 
+            name="chosenGenerator" 
+            id="chosenGenerator" 
+            defaultValue={"tones"} 
+            value={selectedPaletteMode}
+            onChange={(event) => setSelectedPaletteMode(event.target.value)}
+          >
               {generatorList.map((generator) => {
-                return <option key={generator.name}>
+                return <option key={generator.name} value={generator.id}>
                   {generator.name}
                 </option>
               })}
           </select>
         </div>
         
-        <button onClick={() => createColourPalette("tones")} >
+        <button onClick={() => createColourPalette(selectedPaletteMode)} >
           Generate palette
         </button>
 

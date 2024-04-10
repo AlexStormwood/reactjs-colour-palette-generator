@@ -41,26 +41,30 @@ Each object must have at least these keys:
 }
 ```
 
-Any custom generators you'd like to implement should be implemented via this switch statement within the `App.js` file:
+Any custom generators you'd like to implement should be implemented via this array of objects within the `App.js` file:
 
 ```js
-const createColourPalette = (paletteMode = "tones") => {
-    let newPalette = null;
+import { generateTones } from './functions/paletteGenerators';
+import { coolCustomGenerator } from "./whatever/File/You/Made/To/Store/Your/Generator";
 
-    switch (paletteMode) {
-      case "tones":
-        newPalette = generateTones(baseColour, customColourName);
-        
-        break;
-	  case "yourCustomGeneratorHere":
-		newPalette = yourCustomGeneratorFunction(baseColour, customColourName);
-		break;
-		
-      default:
-        break;
+const generatorList = [
+  {
+    id: "tones",
+    name: "Colour Tones",
+    generatorFunction: generateTones
+  },
+  {
+    id: "tonesAlt",
+    name: "Test Tones Please Ignore",
+    generatorFunction: (baseColour, customColourName) => {
+      console.log("Alternate option selected! Woo!");
+      return generateTones(baseColour, customColourName);
     }
-
-    setBaseColourName(colorblender(newPalette[0]).baseColourNamename);
-    setColourPalette(newPalette);
+  },
+  {
+	id: "yourCustomGeneratorId",
+	name: "Your Custom Generator Human-Readable Name",
+	generatorFunction: coolCustomGenerator
   }
+];
 ```
