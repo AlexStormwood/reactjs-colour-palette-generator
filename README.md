@@ -15,13 +15,52 @@ Here:
 
 This site is in active development, this documentation may be out of date.
 
-Pick a colour, press "Generate palette".
+Pick a colour using the colour picker input on the top of the screen.
 
-The screen will display 10 columns of colours - the colours are a series of tones based on the colour you provided.
+You can optionally provide a colour name, and this will be used in the output of the palette generator.
 
-If you're trying to create commonly-used 100-900 ranges of a colour, it may be best to start with the 50 or 100 version of the colour. As in, the super-duper-light-and-pale version of the colour that you want.
+When you're ready to see your palette, press "Generate palette".
 
-This functionality will change over time as we definitely wanna improve this!
+When you've generated a palette, a new button will appear: "Export as CSS variables". 
+Clicking this will show a code snippet that you can copy and use in your code.
+The code snippet also provides a handy lil button to paste the generated code to your clipboard.
 
 
 
+## Development
+
+When making additional colour palette generators, keep in mind that the minimum output must be an array of objects.
+
+Each object must have at least these keys:
+
+```js
+{
+	hex: "#ff0000",
+	name: "some descriptive name of the colour and where it sits in the palette, eg. red-500",
+	baseColourName: "some descriptive name of the base colour of this palette, eg. red."
+}
+```
+
+Any custom generators you'd like to implement should be implemented via this switch statement within the `App.js` file:
+
+```js
+const createColourPalette = (paletteMode = "tones") => {
+    let newPalette = null;
+
+    switch (paletteMode) {
+      case "tones":
+        newPalette = generateTones(baseColour, customColourName);
+        
+        break;
+	  case "yourCustomGeneratorHere":
+		newPalette = yourCustomGeneratorFunction(baseColour, customColourName);
+		break;
+		
+      default:
+        break;
+    }
+
+    setBaseColourName(colorblender(newPalette[0]).baseColourNamename);
+    setColourPalette(newPalette);
+  }
+```
