@@ -7,7 +7,7 @@ export const ExportCodeSnippet = (props) => {
 
 	const codeStringBuilder = () => {
 		let codeAsString = "";
-		codeAsString += `::root {\n`;
+		codeAsString += `:root {\n`;
 		props.palette.forEach(colourObj => {
 			codeAsString += `\t--${colourObj.name}: ${colourObj.hex};\n`;
 		});
